@@ -2,6 +2,7 @@ const { Router } = require("express");
 const router = Router();
 
 const {
+  login,
   getEmployees,
   createEmployee,
   updateEmployee,
@@ -9,10 +10,9 @@ const {
   deleteEmployee,
 } = require("../controllers/employees.controller");
 
-router
-    .route("/")
-    .get(getEmployees)
-    .post(createEmployee);
+router.route("/login").post(login);
+
+router.route("/").get(getEmployees).post(createEmployee);
 
 router
   .route("/:id")

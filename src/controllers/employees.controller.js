@@ -3,6 +3,20 @@ const employeesCtrl = {};
 
 const Employee = require("../models/Employees.js");
 
+employeesCtrl.login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    const employee = await Employee.findOne({ email, password });
+    if (employee) {
+      res.status(200).send(employee);
+    } else {
+      res.status(404).send({ message: "not found" });
+    }
+  } catch (error) {
+    res.json(error);
+  }
+};
+
 employeesCtrl.getEmployees = async (req, res) => {
   try {
     const employees = await Employee.find();
@@ -89,7 +103,6 @@ employeesCtrl.getEmployee = async (req, res) => {
     res.json(error);
   }
 };
-
 
 employeesCtrl.deleteEmployee = async (req, res) => {
   try {
